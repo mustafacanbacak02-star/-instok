@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090713">
+<title>INSTOK — Sosyal Alanın</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{
+  background:#080611;
+  color:#fff;
+  min-height:100vh;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  min-height:100vh;
+  padding-bottom:90px;
+}
+
+/* TOP BAR */
+.topbar{
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,6,17,.92);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.logo-icon{
+  color:#a855f7;
+  font-size:30px;
+  text-shadow:0 0 18px #a855f7;
+}
+
+.logo span{
+  background:linear-gradient(90deg,#fff,#d946ef);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#151122;
+  border:1px solid #2c2340;
+  color:#fff;
+  font-size:18px;
+}
+
+/* PAGES */
+.page{
+  display:none;
+  padding:18px;
+  max-width:700px;
+  margin:auto;
+}
+
+.page.active{
+  display:block;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:42px 10px 25px;
+}
+
+.hero-badge{
+  color:#d946ef;
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.hero-title{
+  font-size:54px;
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-3px;
+}
+
+.hero-title span{
+  background:linear-gradient(90deg,#a855f7,#ec4899,#facc15);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p{
+  color:#aaa3b9;
+  margin:18px auto;
+  max-width:500px;
+  line-height:1.7;
+}
+
+.gradient-btn{
+  background:linear-gradient(135deg,#a855f7,#ec4899);
+  color:#fff;
+  padding:14px 23px;
+  border-radius:16px;
+  font-weight:800;
+  box-shadow:0 0 25px rgba(168,85,247,.25);
+}
+
+.secondary-btn{
+  background:#151122;
+  border:1px solid #34294a;
+  color:#fff;
+  padding:13px 20px;
+  border-radius:16px;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+/* STORIES */
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin:25px 0 14px;
+}
+
+.section-title h2{
+  font-size:19px;
+}
+
+.section-title span{
+  color:#9b91a9;
+  font-size:13px;
+}
+
+.stories{
+  display:flex;
+  gap:13px;
+  overflow-x:auto;
+  padding-bottom:5px;
+}
+
+.stories::-webkit-scrollbar{
+  display:none;
+}
+
+.story{
+  min-width:70px;
+  text-align:center;
+}
+
+.story-ring{
+  width:62px;
+  height:62px;
+  margin:auto;
+  padding:3px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#a855f7,#ec4899,#facc15);
+}
+
+.story-avatar{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#181327;
+  font-size:23px;
+}
+
+.story small{
+  display:block;
+  margin-top:7px;
+  color:#aaa3b9;
+}
+
+/* POSTS */
+.post{
+  background:#100d1b;
+  border:1px solid #251d35;
+  border-radius:22px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+
+.post-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:14px;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#9333ea,#ec4899);
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.user-name{
+  font-weight:700;
+}
+
+.user-time{
+  color:#82798d;
+  font-size:12px;
+  margin-top:3px;
+}
+
+.post-media{
+  width:100%;
+  height:330px;
+  display:grid;
+  place-items:center;
+  font-size:90px;
+  background:
+    radial-gradient(circle at 30% 20%,#51218c,transparent 35%),
+    radial-gradient(circle at 80% 80%,#831843,transparent 35%),
+    #111020;
+}
+
+.post-text{
+  padding:14px;
+  color:#ddd7e3;
+  line-height:1.6;
+}
+
+.post-actions{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:0 10px 12px;
+}
+
+.action{
+  background:transparent;
+  color:#aaa3b9;
+  padding:8px 10px;
+  border-radius:12px;
+}
+
+.action:hover{
+  background:#1c1728;
+  color:#fff;
+}
+
+.action.liked{
+  color:#ec4899;
+}
+
+/* DISCOVER */
+.search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#13101f;
+  border:1px solid #2a2239;
+  border-radius:16px;
+  padding:0 14px;
+}
+
+.search input{
+  width:100%;
+  padding:14px 0;
+  border:0;
+  outline:0;
+  color:#fff;
+  background:transparent;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+  margin-top:18px;
+}
+
+.grid-item{
+  aspect-ratio:1;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+  background:linear-gradient(135deg,#24124b,#41132d);
+}
+
+/* PROFILE */
+.profile-head{
+  text-align:center;
+  padding:30px 0;
+}
+
+.profile-avatar{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+  font-weight:900;
+  background:linear-gradient(135deg,#a855f7,#ec4899);
+  box-shadow:0 0 35px rgba(168,85,247,.3);
+}
+
+.profile-head h1{
+  margin-top:14px;
+}
+
+.profile-head p{
+  color:#91889c;
+  margin-top:5px;
+}
+
+.stats{
+  display:flex;
+  justify-content:center;
+  gap:35px;
+  margin-top:20px;
+}
+
+.stat strong{
+  display:block;
+  font-size:20px;
+}
+
+.stat span{
+  color:#888090;
+  font-size:12px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(12px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:600px;
+  background:#110e1c;
+  border:1px solid #302642;
+  border-radius:28px 28px 0 0;
+  padding:25px;
+  animation:up .25s ease;
+}
+
+@keyframes up{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.modal-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.close{
+  background:#211a2d;
+  color:#fff;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+}
+
+.form-group{
+  margin-bottom:14px;
+}
+
+.form-group label{
+  display:block;
+  color:#aaa3b9;
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  border:1px solid #302642;
+  background:#0c0914;
+  color:#fff;
+  outline:none;
+}
+
+.form-group textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.full{
+  width:100%;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:12px;
+  transform:translateX(-50%);
+  width:calc(100% - 24px);
+  max-width:650px;
+  height:70px;
+  z-index:50;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:rgba(18,14,29,.94);
+  border:1px solid #302642;
+  border-radius:24px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 15px 40px rgba(0,0,0,.45);
+}
+
+.nav-item{
+  background:transparent;
+  color:#766d80;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+}
+
+.nav-item .nav-icon{
+  font-size:21px;
+}
+
+.nav-item.active{
+  color:#d946ef;
+}
+
+.create-btn{
+  width:52px;
+  height:52px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#a855f7,#ec4899);
+  color:#fff;
+  font-size:25px;
+  box-shadow:0 0 25px rgba(168,85,247,.35);
+}
+
+/* LOGIN */
+.auth{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 50% 15%,rgba(168,85,247,.2),transparent 30%),
+    #080611;
+}
+
+.auth-box{
+  width:100%;
+  max-width:430px;
+  background:#100d1b;
+  border:1px solid #302642;
+  border-radius:28px;
+  padding:30px 24px;
+}
+
+.auth-logo{
+  text-align:center;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:3px;
+  margin-bottom:30px;
+}
+
+.auth-logo span{
+  color:#d946ef;
+}
+
+.auth h1{
+  font-size:28px;
+  margin-bottom:8px;
+}
+
+.auth-sub{
+  color:#888090;
+  margin-bottom:25px;
+}
+
+.auth-switch{
+  text-align:center;
+  color:#8e8597;
+  margin-top:18px;
+  font-size:13px;
+}
+
+.auth-switch button{
+  background:none;
+  color:#d946ef;
+  font-weight:700;
+}
+
+/* DESKTOP */
+@media(min-width:800px){
+  .page{
+    padding-top:30px;
+  }
+
+  .post-media{
+    height:430px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="authScreen" class="auth">
+  <div class="auth-box">
+
+    <div class="auth-logo">
+      ⚡ <span>INSTOK</span>
+    </div>
+
+    <div id="loginForm">
+      <h1>Tekrar hoş geldin 👋</h1>
+      <p class="auth-sub">INSTOK hesabına giriş yap.</p>
+
+      <div class="form-group">
+        <label>E-posta</label>
+        <input id="loginEmail" type="email" placeholder="ornek@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>Şifre</label>
+        <input id="loginPassword" type="password" placeholder="••••••••">
+      </div>
+
+      <button class="gradient-btn full" onclick="login()">Giriş yap</button>
+
+      <div class="auth-switch">
+        Hesabın yok mu?
+        <button onclick="showRegister()">Kayıt ol</button>
+      </div>
+    </div>
+
+    <div id="registerForm" style="display:none">
+      <h1>INSTOK'a katıl 🚀</h1>
+      <p class="auth-sub">Yeni hesabını oluştur.</p>
+
+      <div class="form-group">
+        <label>Kullanıcı adı</label>
+        <input id="registerName" type="text" placeholder="kullaniciadi">
+      </div>
+
+      <div class="form-group">
+        <label>E-posta</label>
+        <input id="registerEmail" type="email" placeholder="ornek@email.com">
+      </div>
+
+      <div class="form-group">
+        <label>Şifre</label>
+        <input id="registerPassword" type="password" placeholder="En az 6 karakter">
+      </div>
+
+      <button class="gradient-btn full" onclick="register()">Hesap oluştur</button>
+
+      <div class="auth-switch">
+        Zaten hesabın var mı?
+        <button onclick="showLogin()">Giriş yap</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div id="mainApp" class="app" style="display:none">
+
+  <header class="topbar">
+    <div class="logo">
+      <div class="logo-icon">ϟ</div>
+      <span>INSTOK</span>
+    </div>
+
+    <div class="top-actions">
+      <button class="icon-btn" onclick="openSearch()">⌕</button>
+      <button class="icon-btn" onclick="logout()">↪</button>
+    </div>
+  </header>
+
+
+  <!-- AKIŞ -->
+  <main id="feedPage" class="page active">
+
+    <div class="section-title">
+      <h2>Senin akışın</h2>
+      <span>INSTOK</span>
+    </div>
+
+    <div class="stories">
+      <div class="story">
+        <div class="story-ring">
+          <div class="story-avatar">+</div>
+        </div>
+        <small>Hikayen</small>
+      </div>
+
+      <div class="story">
+        <div class="story-ring">
+          <div class="story-avatar">😎</div>
+        </div>
+        <small>mert</small>
+      </div>
+
+      <div class="story">
+        <div class="story-ring">
+          <div class="story-avatar">🌸</div>
+        </div>
+        <small>elif</small>
+      </div>
+
+      <div class="story">
+        <div class="story-ring">
+          <div class="story-avatar">🔥</div>
+        </div>
+        <small>kaan</small>
+      </div>
+
+      <div class="story">
+        <div class="story-ring">
+          <div class="story-avatar">🌙</div>
+        </div>
+        <small>zeynep</small>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>Yeni paylaşımlar</h2>
+    </div>
+
+    <article class="post">
+
+      <div class="post-head">
+        <div class="avatar">M</div>
+        <div>
+          <div class="user-name">mustafa</div>
+          <div class="user-time">2 saat önce</div>
+        </div>
+      </div>
+
+      <div class="post-media">🌆</div>
+
+      <div class="post-text">
+        Yeni bir başlangıç. INSTOK'ta görüşürüz! ⚡
+      </div>
+
+      <div class="post-actions">
+        <button class="action" onclick="like(this)">♡ 128</button>
+        <button class="action">💬 24</button>
+        <button class="action">↗ Paylaş</button>
+      </div>
+
+    </article>
+
+    <article class="post">
+
+      <div class="post-head">
+        <div class="avatar">E</div>
+        <div>
+          <div class="user-name">elif</div>
+          <div class="user-time">5 saat önce</div>
+        </div>
+      </div>
+
+      <div class="post-media">🌸</div>
+
+      <div class="post-text">
+        Bugün hava gerçekten harika. 🌸
+      </div>
+
+      <div class="post-actions">
+        <button class="action" onclick="like(this)">♡ 86</button>
+        <button class="action">💬 12</button>
+        <button class="action">↗ Paylaş</button>
+      </div>
+
+    </article>
+
+  </main>
+
+
+  <!-- KEŞFET -->
+  <main id="discoverPage" class="page">
+
+    <div class="section-title">
+      <h2>Keşfet</h2>
+    </div>
+
+    <div class="search">
+      🔎
+      <input id="searchInput" oninput="searchPosts()" placeholder="İnsanları ve içerikleri ara...">
+    </div>
+
+    <div class="grid">
+      <div class="grid-item">🌆</div>
+      <div class="grid-item">🌸</div>
+      <div class="grid-item">🎵</div>
+      <div class="grid-item">🏙️</div>
+      <div class="grid-item">🌊</div>
+      <div class="grid-item">🔥</div>
+      <div class="grid-item">🐈</div>
+      <div class="grid-item">🎮</div>
+      <div class="grid-item">🌙</div>
+      <div class="grid-item">🚗</div>
+      <div class="grid-item">🍕</div>
+      <div class="grid-item">📸</div>
+    </div>
+
+  </main>
+
+
+  <!-- SOHBET -->
+  <main id="chatPage" class="page">
+
+    <div class="section-title">
+      <h2>Sohbet</h2>
+    </div>
+
+    <div class="post">
+      <div class="post-head">
+        <div class="avatar">M</div>
+        <div>
+          <div class="user-name">INSTOK Mesajları</div>
+          <div class="user-time">Yakında gerçek zamanlı sohbet</div>
+        </div>
+      </div>
+
+      <div class="post-text">
+        Arkadaşlarınla mesajlaşma, grup sohbetleri ve bildirimler burada olacak. 💬
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- PROFİL -->
+  <main id="profilePage" class="page">
+
+    <div class="profile-head">
+
+      <div id="profileAvatar" class="profile-avatar">M</div>
+
+      <h1 id="profileName">mustafa</h1>
+      <p id="profileEmail">INSTOK kullanıcısı</p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>0</strong>
+          <span>Gönderi</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>Takipçi</span>
+        </div>
+
+        <div class="stat">
+          <strong>0</strong>
+          <span>Takip</span>
+        </div>
+      </div>
+
+      <br>
+
+      <button class="secondary-btn" onclick="openProfileEdit()">
+        Profili düzenle
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <!-- ALT MENÜ -->
+  <nav class="bottom-nav">
+
+    <button class="nav-item active" onclick="showPage('feed',this)">
+      <span class="nav-icon">⌂</span>
+      Akış
+    </button>
+
+    <button class="nav-item" onclick="showPage('discover',this)">
+      <span class="nav-icon">⌕</span>
+      Keşfet
+    </button>
+
+    <button class="create-btn" onclick="openCreate()">
+      +
+    </button>
+
+    <button class="nav-item" onclick="showPage('chat',this)">
+      <span class="nav-icon">◌</span>
+      Sohbet
+    </button>
+
+    <button class="nav-item" onclick="showPage('profile',this)">
+      <span class="nav-icon">♙</span>
+      Profil
+    </button>
+
+  </nav>
+
+</div>
+
+
+<!-- PAYLAŞIM MODALI -->
+<div id="createModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      <h2>Yeni paylaşım</h2>
+      <button class="close" onclick="closeCreate()">×</button>
+    </div>
+
+    <div class="form-group">
+      <label>Ne düşünüyorsun?</label>
+      <textarea id="postContent" placeholder="Bir şeyler paylaş..."></textarea>
+    </div>
+
+    <button class="gradient-btn full" onclick="createPost()">
+      Paylaş
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PROFİL MODALI -->
+<div id="profileModal" class="modal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      <h2>Profili düzenle</h2>
+      <button class="close" onclick="closeProfileEdit()">×</button>
+    </div>
+
+    <div class="form-group">
+      <label>Kullanıcı adı</label>
+      <input id="editName">
+    </div>
+
+    <button class="gradient-btn full" onclick="saveProfile()">
+      Kaydet
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* -------------------------
+   UYGULAMA DURUMU
+------------------------- */
+
+let currentUser = JSON.parse(localStorage.getItem("instok_user"));
+
+function startApp(){
+
+  if(!currentUser){
+    document.getElementById("authScreen").style.display="flex";
+    document.getElementById("mainApp").style.display="none";
+    return;
+  }
+
+  document.getElementById("authScreen").style.display="none";
+  document.getElementById("mainApp").style.display="block";
+
+  updateProfile();
+}
+
+startApp();
+
+
+/* -------------------------
+   GİRİŞ
+------------------------- */
+
+function login(){
+
+  const email=document.getElementById("loginEmail").value.trim();
+  const password=document.getElementById("loginPassword").value;
+
+  if(!email || !password){
+    alert("Lütfen e-posta ve şifreni gir.");
+    return;
+  }
+
+  const saved=JSON.parse(localStorage.getItem("instok_registered_user"));
+
+  if(!saved || saved.email!==email || saved.password!==password){
+    alert("E-posta veya şifre hatalı.");
+    return;
+  }
+
+  currentUser={
+    name:saved.name,
+    email:saved.email
+  };
+
+  localStorage.setItem("instok_user",JSON.stringify(currentUser));
+
+  startApp();
+}
+
+
+/* -------------------------
+   KAYIT
+------------------------- */
+
+function register(){
+
+  const name=document.getElementById("registerName").value.trim();
+  const email=document.getElementById("registerEmail").value.trim();
+  const password=document.getElementById("registerPassword").value;
+
+  if(name.length<3){
+    alert("Kullanıcı adı en az 3 karakter olmalı.");
+    return;
+  }
+
+  if(!email.includes("@")){
+    alert("Geçerli bir e-posta adresi gir.");
+    return;
+  }
+
+  if(password.length<6){
+    alert("Şifre en az 6 karakter olmalı.");
+    return;
+  }
+
+  const user={
+    name:name,
+    email:email,
+    password:password
+  };
+
+  localStorage.setItem(
+    "instok_registered_user",
+    JSON.stringify(user)
+  );
+
+  currentUser={
+    name:name,
+    email:email
+  };
+
+  localStorage.setItem(
+    "instok_user",
+    JSON.stringify(currentUser)
+  );
+
+  alert("Hesabın oluşturuldu! 🎉");
+
+  startApp();
+}
+
+
+/* -------------------------
+   ÇIKIŞ
+------------------------- */
+
+function logout(){
+
+  localStorage.removeItem("instok_user");
+
+  currentUser=null;
+
+  startApp();
+}
+
+
+/* -------------------------
+   FORM GEÇİŞLERİ
+------------------------- */
+
+function showRegister(){
+
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("registerForm").style.display="block";
+}
+
+function showLogin(){
+
+  document.getElementById("registerForm").style.display="none";
+  document.getElementById("loginForm").style.display="block";
+}
+
+
+/* -------------------------
+   SAYFA DEĞİŞTİRME
+------------------------- */
+
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.querySelectorAll(".nav-item")
+    .forEach(n=>n.classList.remove("active"));
+
+  document.getElementById(page+"Page")
+    .classList.add("active");
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+
+/* -------------------------
+   BEĞEN
+------------------------- */
+
+function like(button){
+
+  button.classList.toggle("liked");
+
+  if(button.classList.contains("liked")){
+    button.innerHTML="♥ Beğenildi";
+  }else{
+    button.innerHTML="♡ Beğen";
+  }
+}
+
+
+/* -------------------------
+   PAYLAŞIM
+------------------------- */
+
+function openCreate(){
+
+  document.getElementById("createModal")
+    .classList.add("show");
+}
+
+function closeCreate(){
+
+  document.getElementById("createModal")
+    .classList.remove("show");
+}
+
+function createPost(){
+
+  const content=document
+    .getElementById("postContent")
+    .value
+    .trim();
+
+  if(!content){
+    alert("Bir şeyler yazmalısın.");
+    return;
+  }
+
+  const post=document.createElement("article");
+
+  post.className="post";
+
+  post.innerHTML=`
+
+    <div class="post-head">
+
+      <div class="avatar">
+        ${currentUser.name.charAt(0).toUpperCase()}
+      </div>
+
+      <div>
+
+        <div class="user-name">
+          ${escapeHtml(currentUser.name)}
+        </div>
+
+        <div class="user-time">
+          şimdi
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="post-text">
+      ${escapeHtml(content)}
+    </div>
+
+    <div class="post-actions">
+
+      <button class="action" onclick="like(this)">
+        ♡ 0
+      </button>
+
+      <button class="action">
+        💬 0
+      </button>
+
+      <button class="action">
+        ↗ Paylaş
+      </button>
+
+    </div>
+  `;
+
+  const feed=document.getElementById("feedPage");
+
+  feed.appendChild(post);
+
+  document.getElementById("postContent").value="";
+
+  closeCreate();
+
+  showPage(
+    "feed",
+    document.querySelector(".nav-item")
+  );
+}
+
+
+/* -------------------------
+   PROFİL
+------------------------- */
+
+function updateProfile(){
+
+  if(!currentUser) return;
+
+  const name=currentUser.name || "Kullanıcı";
+
+  document.getElementById("profileName")
+    .textContent=name;
+
+  document.getElementById("profileEmail")
+    .textContent=currentUser.email || "";
+
+  document.getElementById("profileAvatar")
+    .textContent=name.charAt(0).toUpperCase();
+}
+
+function openProfileEdit(){
+
+  document.getElementById("editName").value=
+    currentUser.name;
+
+  document.getElementById("profileModal")
+    .classList.add("show");
+}
+
+function closeProfileEdit(){
+
+  document.getElementById("profileModal")
+    .classList.remove("show");
+}
+
+function saveProfile(){
+
+  const name=document
+    .getElementById("editName")
+    .value
+    .trim();
+
+  if(name.length<3){
+    alert("Kullanıcı adı en az 3 karakter olmalı.");
+    return;
+  }
+
+  currentUser.name=name;
+
+  localStorage.setItem(
+    "instok_user",
+    JSON.stringify(currentUser)
+  );
+
+  const saved=JSON.parse(
+    localStorage.getItem("instok_registered_user")
+  );
+
+  if(saved){
+    saved.name=name;
+
+    localStorage.setItem(
+      "instok_registered_user",
+      JSON.stringify(saved)
+    );
+  }
+
+  updateProfile();
+
+  closeProfileEdit();
+}
+
+
+/* -------------------------
+   ARAMA
+------------------------- */
+
+function openSearch(){
+
+  showPage(
+    "discover",
+    document.querySelectorAll(".nav-item")[1]
+  );
+
+  setTimeout(()=>{
+    document.getElementById("searchInput").focus();
+  },100);
+}
+
+function searchPosts(){
+
+  const value=document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+  document.querySelectorAll(".grid-item")
+    .forEach(item=>{
+
+      item.style.opacity=
+        value ? ".45" : "1";
+
+    });
+}
+
+
+/* -------------------------
+   GÜVENLİ METİN
+------------------------- */
+
+function escapeHtml(text){
+
+  const div=document.createElement("div");
+
+  div.textContent=text;
+
+  return div.innerHTML;
+}
+
+
+/* -------------------------
+   KAPATMA
+------------------------- */
+
+document.querySelectorAll(".modal")
+.forEach(modal=>{
+
+  modal.addEventListener("click",function(e){
+
+    if(e.target===modal){
+      modal.classList.remove("show");
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>
